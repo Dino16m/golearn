@@ -1,0 +1,59 @@
+AppName: "golearn"
+SecretKey: "mysecret"
+Env: "development"
+AppUrl: "http://localhost:8080"
+JwtOptions:
+  Realm:       "golearn"
+  Key:         "secret"
+  Timeout:     30m
+  MaxRefresh:  30m
+  IdentityKey: "Id"
+redis:
+  Size:     10
+  Network:  "tcp"
+  Address:  "localhost:6379"
+  Password: ""
+  KeyPairs: "secret"
+session:
+  Path:
+  Domain:
+  MaxAge:
+  Secure:
+  HttpOnly:
+  SameSite: "None"
+mail:
+  SenderName:
+  FromEmail:
+  Host:
+  Port:
+  Username:
+  Password:
+AuthTemplates:
+  EmailVerifTxt:
+  EmailVerifHTML:
+  PasswordResetLinkTxt:
+  PasswordResetLinkHTML:
+  PasswordResetCodeTxt:
+  PasswordResetCodeHTML:
+WebCORSConfig:
+  AllowOrigins: []
+  AllowAllOrigins: true
+  AllowMethods: []
+  AllowHeaders: []
+  AllowCredentials: true
+  ExposeHeaders: []
+  AllowWildCards: true
+APICORSConfig:
+  AllowOrigins: []
+  AllowAllOrigins: true
+  AllowMethods: []
+  AllowHeaders: []
+  AllowCredentials: true
+  ExposeHeaders: []
+  AllowWildCards: true
+LoggerConfig:
+  Filename: 
+  MaxSize:
+  MaxBackups:
+  MaxAge:
+  Compress:
