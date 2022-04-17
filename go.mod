@@ -13,6 +13,7 @@ require (
 	github.com/gobuffalo/buffalo v0.16.21
 	github.com/gobuffalo/gocraft-work-adapter v0.0.0-20180714213200-7d6504f1dffe
 	github.com/gocraft/work v0.5.1 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/wire v0.5.0

@@ -36,6 +36,8 @@ type AuthUserManager interface {
 // to fetch or set the AuthUserManager from the request context
 const AuthUserContextKey = "AuthUserManager"
 
+const UserIdClaim = "uid"
+
 // AuthUser ...
 type AuthUser interface {
 	GetPassword() string
