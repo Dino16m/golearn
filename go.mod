@@ -18,7 +18,6 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
-	github.com/matcornic/hermes/v2 v2.1.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/robfig/cron v1.2.0 // indirect

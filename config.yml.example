@@ -2,6 +2,8 @@ AppName: "golearn"
 SecretKey: "mysecret"
 Env: "development"
 AppUrl: "http://localhost:8080"
+Database:
+  Url: "DB_USER:DB_PWD@PROTOCOL(DB_HOST:DB_PORT)/DB_NAME?parseTime=true"
 JwtOptions:
   Realm:       "golearn"
   Key:         "secret"

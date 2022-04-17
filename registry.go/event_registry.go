@@ -9,5 +9,5 @@ import (
 func RegisterEventHandlers(c dependencies.EventHandlersContainer,
 	app dependencies.App) {
 	dispatcher := app.EventDispatcher
-	dispatcher.AddListeners(events.UserCreated, c.UserCreatedHandler)
+	dispatcher.AddListeners(events.NewUserCreated.ID(), c.UserCreatedHandler)
 }

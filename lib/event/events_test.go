@@ -12,12 +12,12 @@ type dummyPayload struct{}
 
 type authDispatcherTestSuite struct {
 	suite.Suite
-	dispatcher *AuthEventDispatcher
+	dispatcher *EventDispatcher
 	eventName  EventName
 }
 
 func (s *authDispatcherTestSuite) SetupTest() {
-	s.dispatcher = NewAuthEventDispatcher()
+	s.dispatcher = NewEventDispatcher()
 	s.eventName = EventName("dummy")
 }
 
@@ -33,7 +33,8 @@ func (s *authDispatcherTestSuite) TestRegisteredListenerCalledOnDispatch() {
 	listener.On("SetId", mock.AnythingOfType("int"))
 	listener.On("Handle", mock.AnythingOfType("dummyPayload"))
 	s.dispatcher.AddListeners(s.eventName, listener)
-	s.dispatcher.Dispatch(s.eventName, dummyPayload{})
+	event := NewEvent(s.eventName, dummyPayload{})
+	s.dispatcher.Dispatch(event)
 	listener.AssertExpectations(s.T())
 }
 
@@ -57,7 +58,7 @@ func (s *authDispatcherTestSuite) TestListenerNotCalledWhenRemoved() {
 	secondListener.On("Handle", mock.Anything)
 	listener.On("GetId").Return(captured)
 	s.dispatcher.RemoveListener(s.eventName, listener)
-	s.dispatcher.Dispatch(s.eventName, payload)
+	s.dispatcher.Dispatch(NewEvent(s.eventName, payload))
 	listener.AssertExpectations(s.T())
 	listener.AssertNotCalled(s.T(), "Handle", payload)
 }

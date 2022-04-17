@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+// DatabaseOptions ...
+type DatabaseOptions struct {
+	URL string
+}
+
 // JwtOptions ...
 type JwtOptions struct {
 	Realm       string

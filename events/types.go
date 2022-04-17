@@ -8,3 +8,25 @@ const (
 	// and id which should have an int value
 	UserCreated = event.EventName("usercreated")
 )
+
+type User struct {
+	name string
+}
+
+type Topic struct {
+	id string
+}
+
+func (topic *Topic) ID() event.EventName {
+	return event.EventName(topic.id)
+}
+
+type newUserCreated struct {
+	Topic
+}
+
+func (topic *newUserCreated) With(data User) event.Event {
+	return event.NewEvent(topic.ID(), data)
+}
+
+var NewUserCreated = newUserCreated{Topic{"new-user-created"}}

@@ -7,13 +7,18 @@ type Listener interface {
 	GetId() int
 }
 
+type Event struct {
+	name EventName
+	data interface{}
+}
+
 // EventName custom type of events
 type EventName string
 
 // Dispatcher interface
 type Dispatcher interface {
 	AddListeners(EventName, ...Listener)
-	// Dispatch calls event handlers in the same ordr as they were registered
+	// Dispatch calls event handlers in the same order as they were registered
 	Dispatch(EventName, interface{})
 	RemoveListener(EventName, Listener)
 }

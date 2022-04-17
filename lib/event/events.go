@@ -5,16 +5,23 @@ import (
 	"sync"
 )
 
-// AuthEventDispatcher ...
-type AuthEventDispatcher struct {
+func NewEvent(id EventName, data interface{}) Event {
+	return Event{
+		name: EventName(id),
+		data: data,
+	}
+}
+
+// EventDispatcher ...
+type EventDispatcher struct {
 	listeners map[EventName][]Listener
 	ids       map[int]bool
 	mutex     *sync.Mutex
 }
 
-// NewAuthEventDispatcher construct the event dispatcher
-func NewAuthEventDispatcher() *AuthEventDispatcher {
-	return &AuthEventDispatcher{
+// NewEventDispatcher construct the event dispatcher
+func NewEventDispatcher() *EventDispatcher {
+	return &EventDispatcher{
 		mutex:     &sync.Mutex{},
 		ids:       make(map[int]bool),
 		listeners: make(map[EventName][]Listener),
@@ -22,7 +29,7 @@ func NewAuthEventDispatcher() *AuthEventDispatcher {
 }
 
 // AddListeners ...
-func (a *AuthEventDispatcher) AddListeners(name EventName, listeners ...Listener) {
+func (a *EventDispatcher) AddListeners(name EventName, listeners ...Listener) {
 	a.listeners[name] = append(a.listeners[name], listeners...)
 	for _, listener := range listeners {
 		id := a.getID()
@@ -30,7 +37,7 @@ func (a *AuthEventDispatcher) AddListeners(name EventName, listeners ...Listener
 	}
 }
 
-func (a *AuthEventDispatcher) getID() int {
+func (a *EventDispatcher) getID() int {
 
 	var id int
 	a.mutex.Lock()
@@ -47,15 +54,15 @@ func (a *AuthEventDispatcher) getID() int {
 }
 
 // Dispatch emits an event
-func (a *AuthEventDispatcher) Dispatch(name EventName, payload interface{}) {
-	listeners := a.listeners[name]
+func (a *EventDispatcher) Dispatch(event Event) {
+	listeners := a.listeners[event.name]
 	for _, listener := range listeners {
-		listener.Handle(payload)
+		listener.Handle(event.data)
 	}
 }
 
 // RemoveListener unsubscribes a listener from a particular events
-func (a *AuthEventDispatcher) RemoveListener(
+func (a *EventDispatcher) RemoveListener(
 	name EventName, listenerToRemove Listener,
 ) {
 	a.mutex.Lock()

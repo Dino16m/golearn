@@ -2,26 +2,28 @@ AppName: "golearn"
 SecretKey: "mysecret"
 Env: "development"
 AppUrl: "http://localhost:8080"
+DatabaseOptions:
+  URL: "UZU:uzu1@tcp(127.0.0.1:3306)/gonic?parseTime=true"
 JwtOptions:
   Realm:       "golearn"
   Key:         "secret"
   Timeout:     30m
   MaxRefresh:  30m
   IdentityKey: "Id"
-redis:
+Redis:
   Size:     10
   Network:  "tcp"
   Address:  "localhost:6379"
   Password: ""
   KeyPairs: "secret"
-session:
+Session:
   Path:
   Domain:
   MaxAge:
   Secure:
   HttpOnly:
   SameSite: "None"
-mail:
+Mail:
   SenderName:
   FromEmail:
   Host:

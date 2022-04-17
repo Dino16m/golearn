@@ -13,17 +13,18 @@ import (
 // SuperConfig is the default exported settings struct for the auth app.
 type SuperConfig struct {
 	JwtOptions        JwtOptions
-	RedisStoreOptions RedisStoreOptions `mapstructure:"redis"`
+	RedisStoreOptions RedisStoreOptions `mapstructure:"Redis"`
 	AppName           string
-	SessionOptions    sessions.Options  `mapstructure:"session"`
-	MailOptions       MailOptions       `mapstructure:"mail"`
-	AuthMailTemplates AuthMailTemplates `mapstructure:"authtemplates"`
+	SessionOptions    sessions.Options  `mapstructure:"Session"`
+	MailOptions       MailOptions       `mapstructure:"Mail"`
+	AuthMailTemplates AuthMailTemplates `mapstructure:"Authtemplates"`
 	SecretKey         string
 	AppURL            string
 	Env               string
 	APICORSConfig     CORSConfig
 	WebCORSConfig     CORSConfig
 	LoggerConfig      LoggerConfig
+	DatabaseOptions   DatabaseOptions
 }
 
 // Config is the struct containing structs of all other configs
@@ -35,12 +36,12 @@ func IsSet() bool {
 }
 
 // Initialize sets up config from file. It handles setting reasonable defaults
-// as well as raising errors when sensible defaults are unavalaible
+// as well as raising errors when sensible defaults are unavailable
 func Initialize(cfgType string, path string) {
 	viper.AddConfigPath(".")
+	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	err := viper.ReadInConfig()
-	setDefaults()
 	if err != nil {
 		panic(fmt.Errorf("fatal error config file: %s ", err))
 	}
@@ -48,43 +49,6 @@ func Initialize(cfgType string, path string) {
 	samesite := mapSameSite(samesiteStr)
 	viper.Set("session.samesite", samesite)
 	viper.Unmarshal(&Config)
-}
-
-type templatePaths struct {
-	text string
-	html string
-}
-
-var defaultEmailVerif = templatePaths{
-	text: "templates/mail/email.txt",
-	html: "templates/mail/email.html",
-}
-var defaultPasswordReset = defaultEmailVerif
-
-func setDefaults() {
-	setDefaultTemplates()
-}
-
-func setDefaultTemplates() {
-	txt := viper.GetString("authtemplates.EmailVerifTxt")
-	html := viper.GetString("authtemplates.EmailVerifHTML")
-	emailVerif := getTemplatePaths(txt, html, defaultEmailVerif)
-	viper.Set("authtemplates.EmailVerifTxt", emailVerif.text)
-	viper.Set("authtemplates.EmailVerifHTML", emailVerif.html)
-
-	txt = viper.GetString("authtemplates.PasswordResetLinkTxt")
-	html = viper.GetString("authtemplates.PasswordResetLinkHTML")
-	passResetLink := getTemplatePaths(txt, html, defaultPasswordReset)
-
-	viper.Set("authtemplates.PasswordResetLinkTxt", passResetLink.text)
-	viper.Set("authtemplates.PasswordResetLinkHTML", passResetLink.html)
-
-	txt = viper.GetString("authtemplates.PasswordResetCodeTxt")
-	html = viper.GetString("authtemplates.PasswordResetCodeHTML")
-	passResetCode := getTemplatePaths(txt, html, defaultPasswordReset)
-
-	viper.Set("authtemplates.PasswordResetCodeTxt", passResetCode.text)
-	viper.Set("authtemplates.PasswordResetCodeHTML", passResetCode.html)
 }
 
 func mapSameSite(val string) http.SameSite {
@@ -101,14 +65,4 @@ func mapSameSite(val string) http.SameSite {
 		mappedTo = http.SameSiteDefaultMode
 	}
 	return mappedTo
-}
-func getTemplatePaths(txt, html string, defPaths templatePaths) templatePaths {
-	templatePaths := templatePaths{}
-	if txt == "" && html == "" {
-		templatePaths = defPaths
-	} else {
-		templatePaths.html = html
-		templatePaths.text = txt
-	}
-	return templatePaths
 }
