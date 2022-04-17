@@ -12,5 +12,4 @@ func RegisterJobs(
 
 	worker := app.Worker
 	worker.Register(jobs.UserCreatedJob, handlers.UserCreatedHandler.Handle)
-
 }

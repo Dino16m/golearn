@@ -10,6 +10,8 @@ type JobHandler interface {
 	Handle(worker.Args) error
 }
 
+type HandlerArgs = worker.Args
+
 // UserCreatedHandler handles sending welcome
 // and verification mails when users are created
 type UserCreatedHandler struct {
@@ -28,7 +30,7 @@ func NewUserCreatedHandler(mail UserCreatedMail) UserCreatedHandler {
 
 // Handle method which makes the UserCreatedHandler implement
 // the JobHandler interface
-func (uc UserCreatedHandler) Handle(args worker.Args) error {
+func (uc UserCreatedHandler) Handle(args HandlerArgs) error {
 	name := args["name"].(string)
 	email := args["email"].(string)
 	verificationLink := args["verificatioLink"].(string)

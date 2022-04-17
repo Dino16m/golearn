@@ -40,8 +40,8 @@ type AuthMail struct {
 */
 /*
 	passwordResetHTML and passwordResetTxt templates should expect data containing fields
-	{Appname string, Name  string, ResetLink string or Code} depending on whether it
-	expects a code or a link
+	{Appname string, Name  string, ResetLink string or Code depending on whether it
+	expects a code or a link}
 */
 func NewAuthMail(appName string, mailer mail.IMailer, emailVerifTxtPath,
 	emailVerifHTMLPath string, passwordResetCodeTxtPath,

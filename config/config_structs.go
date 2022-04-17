@@ -9,15 +9,6 @@ type DatabaseOptions struct {
 	URL string
 }
 
-// JwtOptions ...
-type JwtOptions struct {
-	Realm       string
-	Key         string
-	Timeout     time.Duration
-	MaxRefresh  time.Duration
-	IdentityKey string
-}
-
 // RedisStoreOptions ...
 type RedisStoreOptions struct {
 	Size     int

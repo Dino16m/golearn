@@ -7,7 +7,6 @@ import (
 	"github.com/dino16m/golearn/dependencies"
 	"github.com/dino16m/golearn/models"
 	"github.com/dino16m/golearn/registry.go"
-	"github.com/dino16m/golearn/repositories"
 	"github.com/dino16m/golearn/routers"
 	"github.com/dino16m/golearn/types"
 	"github.com/gin-gonic/gin"
