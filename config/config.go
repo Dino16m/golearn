@@ -8,11 +8,12 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/spf13/viper"
+	"github.com/dino16m/golearn-core/config"
 )
 
 // SuperConfig is the default exported settings struct for the auth app.
 type SuperConfig struct {
-	JwtOptions        JwtOptions
+	JwtOptions        config.JWTConfig
 	RedisStoreOptions RedisStoreOptions `mapstructure:"Redis"`
 	AppName           string
 	SessionOptions    sessions.Options  `mapstructure:"Session"`

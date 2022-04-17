@@ -1,8 +1,5 @@
 package config
 
-import (
-	"time"
-)
 
 // DatabaseOptions ...
 type DatabaseOptions struct {
