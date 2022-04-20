@@ -6,24 +6,22 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/dino16m/golearn-core/config"
 	"github.com/gin-contrib/sessions"
 	"github.com/spf13/viper"
-	"github.com/dino16m/golearn-core/config"
 )
 
 // SuperConfig is the default exported settings struct for the auth app.
 type SuperConfig struct {
-	JwtOptions        config.JWTConfig
+	JwtOptions        config.JwtOptions
 	RedisStoreOptions RedisStoreOptions `mapstructure:"Redis"`
 	AppName           string
-	SessionOptions    sessions.Options  `mapstructure:"Session"`
-	MailOptions       MailOptions       `mapstructure:"Mail"`
-	AuthMailTemplates AuthMailTemplates `mapstructure:"Authtemplates"`
+	SessionOptions    sessions.Options `mapstructure:"Session"`
+	MailOptions       MailOptions      `mapstructure:"Mail"`
 	SecretKey         string
 	AppURL            string
 	Env               string
-	APICORSConfig     CORSConfig
-	WebCORSConfig     CORSConfig
+	CORSConfig        config.CORSConfig
 	LoggerConfig      LoggerConfig
 	DatabaseOptions   DatabaseOptions
 }

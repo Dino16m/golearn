@@ -2,50 +2,35 @@ AppName: "golearn"
 SecretKey: "mysecret"
 Env: "development"
 AppUrl: "http://localhost:8080"
-Database:
-  Url: "DB_USER:DB_PWD@PROTOCOL(DB_HOST:DB_PORT)/DB_NAME?parseTime=true"
+DatabaseOptions:
+  URL: "UZU:uzu1@tcp(127.0.0.1:3306)/gonic?parseTime=true"
 JwtOptions:
   Realm:       "golearn"
   Key:         "secret"
   Timeout:     30m
   MaxRefresh:  30m
-  IdentityKey: "Id"
-redis:
+  IdentityKey: "Id" 
+Redis:
   Size:     10
   Network:  "tcp"
   Address:  "localhost:6379"
   Password: ""
   KeyPairs: "secret"
-session:
+Session:
   Path:
   Domain:
   MaxAge:
   Secure:
   HttpOnly:
   SameSite: "None"
-mail:
+Mail:
   SenderName:
   FromEmail:
   Host:
   Port:
   Username:
   Password:
-AuthTemplates:
-  EmailVerifTxt:
-  EmailVerifHTML:
-  PasswordResetLinkTxt:
-  PasswordResetLinkHTML:
-  PasswordResetCodeTxt:
-  PasswordResetCodeHTML:
-WebCORSConfig:
-  AllowOrigins: []
-  AllowAllOrigins: true
-  AllowMethods: []
-  AllowHeaders: []
-  AllowCredentials: true
-  ExposeHeaders: []
-  AllowWildCards: true
-APICORSConfig:
+CORSConfig:
   AllowOrigins: []
   AllowAllOrigins: true
   AllowMethods: []

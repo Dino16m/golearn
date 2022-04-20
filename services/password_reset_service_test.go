@@ -8,7 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dino16m/golearn/services/mocks"
+	"golearn-api-template/services/mocks"
+
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )

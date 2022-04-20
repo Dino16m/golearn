@@ -1,6 +1,7 @@
 package models
 
 import (
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -8,31 +9,29 @@ type User struct {
 	gorm.Model
 	FirstName string
 	LastName  string
-	Password  string
+	password  string
 	Email     string
 }
 
-func (u User) GetPassword() string {
-	return u.Password
+func NewUser(firstName, lastName, email, password string) *User {
+	return &User{
+		FirstName: firstName, LastName: lastName, Email: email, password: hashPassword(password),
+	}
 }
 
-func (u User) SetPassword(password string) {
-	u.Password = password
+func (u *User) SetPassword(password string) {
+	u.password = hashPassword(password)
 }
 
-func (u User) EmailVerified() {
-
+func (u *User) ComparePassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(u.password), []byte(password))
+	if err != nil {
+		return false
+	}
+	return true
 }
 
-func (u User) GetEmail() string {
-	return u.Email
-}
-
-func (u User) GetId() int {
-	return int(u.ID)
-}
-
-// GetName returns user name in the format FirstName LastName
-func (u User) GetName() (string, string) {
-	return u.FirstName, u.LastName
+func hashPassword(password string) string {
+	hashed, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(hashed)
 }

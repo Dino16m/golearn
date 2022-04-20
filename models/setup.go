@@ -1,13 +1,15 @@
 package models
 
 import (
+	"golearn-api-template/config"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-func ConnectDataBase() *gorm.DB {
+func ConnectDataBase(cfg config.DatabaseOptions) *gorm.DB {
 	database, err := gorm.Open(
-		mysql.Open("UZU:uzu1@tcp(127.0.0.1:3306)/gonic?parseTime=true"),
+		mysql.Open(cfg.URL),
 		&gorm.Config{},
 	)
 
